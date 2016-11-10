@@ -5,15 +5,11 @@
 
 void sighandler(int signum){
   if (signum == 2){
-    printf("\nreceived signal %d, exiting...\n", signum);
+    printf("received signal 2 (SIGINT), exiting...\n");
     exit(0);
   }
-  
-  if (signum == 10){
-    printf("\nParent PID: %d\n", getppid());
-    kill(getpid(), SIGCONT);
-  }
-  
+  if (signum == 10)
+    printf("received signal 10 (SIGUSR1), reporting Parent PID: %d\n", getppid());
 }
 
 int main(){
