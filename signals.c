@@ -1,15 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <signal.h>
 
 void sighandler(int signum){
   if (signum == 2){
-    printf("received signal 2 (SIGINT), exiting...\n");
+    printf("received signal 2 (SIGINT), writing out to info.txt...\n");
+    int filedesc = open("info.txt", O_CREAT|O_RDWR|O_APPEND, 0666);
+    write(filedesc, "received signal 2 (SIGINT), signals.c terminated\n", 50);
+    close(filedesc);
     exit(0);
   }
   if (signum == 10)
-    printf("received signal 10 (SIGUSR1), reporting Parent PID: %d\n", getppid());
+    printf("received signal 10 (SIGUSR1), reporting parent PID: %d\n", getppid());
 }
 
 int main(){
