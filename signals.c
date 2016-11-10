@@ -6,9 +6,10 @@
 
 void sighandler(int signum){
   if (signum == 2){
+    char text[] = "received signal 2 (SIGINT), signals.c terminated\n";
     printf("received signal 2 (SIGINT), writing out to info.txt...\n");
     int filedesc = open("info.txt", O_CREAT|O_RDWR|O_APPEND, 0666);
-    write(filedesc, "received signal 2 (SIGINT), signals.c terminated\n", 50);
+    write(filedesc, text, sizeof(text));
     close(filedesc);
     exit(0);
   }
