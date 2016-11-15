@@ -5,7 +5,7 @@
 #include <signal.h>
 
 void sighandler(int signum){
-  if (signum == 2){
+  if (signum == SIGINT){
     char text[] = "received signal 2 (SIGINT), signals.c terminated\n";
     printf("received signal 2 (SIGINT), writing out to info.txt...\n");
     int filedesc = open("info.txt", O_CREAT|O_RDWR|O_APPEND, 0666);
@@ -13,7 +13,7 @@ void sighandler(int signum){
     close(filedesc);
     exit(0);
   }
-  if (signum == 10)
+  if (signum == SIGUSR1)
     printf("received signal 10 (SIGUSR1), reporting parent PID: %d\n", getppid());
 }
 
